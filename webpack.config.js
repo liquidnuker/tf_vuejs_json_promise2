@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const extractCSS = new ExtractTextPlugin('[name].bundle.css');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractCSS = new ExtractTextPlugin('[name].bundle.css');
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
@@ -15,10 +15,10 @@ module.exports = {
   module: {
     rules: [
       // extractCSS
-      // {
-      //   test: /\.scss$/,
-      //   loader: extractCSS.extract(['css-loader', 'sass-loader'])
-      // },
+      {
+        test: /\.scss$/,
+        loader: extractCSS.extract(['css-loader', 'sass-loader'])
+      },
       // // url loader
       // {
       //   test: /\.(png|jpg|otf|ttf)$/,

@@ -1,3 +1,5 @@
+import "./styles/main.scss";
+
 import {where} from "underscore";
 const Vue = require("./js/vendor/vue.min.js");
 
