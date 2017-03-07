@@ -13926,7 +13926,7 @@ jsonLoader.getJSON(jsonUrl).then(function (response) {
 (function () {
   var run = function run() {
     console.log("document ready");
-    document.getElementById("filterSpecies").onclick = store.filter;
+    document.getElementById("filterSpecies").onclick = jsonLoader.filter;
     $(document.body).on('click', 'img', function () {
       store.filterId(this.id);
     });

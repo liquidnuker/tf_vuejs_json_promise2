@@ -105,7 +105,7 @@ jsonLoader.getJSON(jsonUrl)
 (function () {
   var run = () => {
     console.log("document ready");
-    document.getElementById("filterSpecies").onclick = store.filter;
+    document.getElementById("filterSpecies").onclick = jsonLoader.filter;
     $(document.body).on('click', 'img', function () {
       store.filterId(this.id);
     });
