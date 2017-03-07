@@ -1,9 +1,6 @@
 import "./styles/main.scss";
 
-import {
-  where
-}
-from "underscore";
+import {where} from "underscore";
 const Vue = require("./js/vendor/vue.min.js");
 
 // 
@@ -107,7 +104,7 @@ jsonLoader.getJSON(jsonUrl)
   const run = () => {
     console.log("document ready");
     document.getElementById("filterSpecies").onclick = jsonLoader.filter;
-    $(document.body).on('click', 'img', function () {
+    $(document.body).on("click", "img", function () {
       jsonLoader.filterId(this.id);
     });
 
