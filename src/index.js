@@ -71,7 +71,8 @@ const vmA = new Vue({
   el: "#app",
   data: {
     privateState: {},
-    sharedState: store.state
+    sharedState: store.state,
+    loader: true
   }
 });
 
@@ -93,7 +94,13 @@ const vmC = new Vue({
 
 // 
 // ======================================================/
-store.ajaxLoader();
+jsonLoader.preloader();
+jsonLoader.getJSON(jsonUrl)
+  .then(function (response) {
+    // console.log(response.bonsai.length);
+    store.state.message = response.bonsai;
+    vmA.loader = false;
+  });
 
 (function () {
   var run = () => {
