@@ -104,7 +104,7 @@ jsonLoader.getJSON(jsonUrl)
   });
 
 (function () {
-  var run = () => {
+  const run = () => {
     console.log("document ready");
     document.getElementById("filterSpecies").onclick = jsonLoader.filter;
     $(document.body).on('click', 'img', function () {
