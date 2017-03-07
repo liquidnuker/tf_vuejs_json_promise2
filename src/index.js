@@ -1,6 +1,9 @@
 import "./styles/main.scss";
 
-import {where} from "underscore";
+import {
+  where
+}
+from "underscore";
 const Vue = require("./js/vendor/vue.min.js");
 
 // 
@@ -35,6 +38,12 @@ const jsonLoader = {
       species: "Jukan"
     });
   },
+  filterId: (idToFilter) => {
+    store.state.filteredId = where(store.state.message, {
+      id: idToFilter
+    });
+    console.log(store.state.filteredId);
+  },
   preloader: () => {
     const spinner = `<div class="sk-wave">
       <div class="sk-rect sk-rect1"></div>
@@ -54,16 +63,8 @@ const store = {
   state: {
     message: "",
     filteredId: ""
-  }  
+  }
 };
-
-
-//   filterId: (idToFilter) => {
-//     store.state.filteredId = where(store.state.message, {
-//       id: idToFilter
-//     });
-//     console.log(store.state.filteredId);
-//   }
 
 // 
 // ======================================================/
@@ -107,7 +108,7 @@ jsonLoader.getJSON(jsonUrl)
     console.log("document ready");
     document.getElementById("filterSpecies").onclick = jsonLoader.filter;
     $(document.body).on('click', 'img', function () {
-      store.filterId(this.id);
+      jsonLoader.filterId(this.id);
     });
 
   };

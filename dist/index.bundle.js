@@ -13864,6 +13864,12 @@ var jsonLoader = {
       species: "Jukan"
     });
   },
+  filterId: function filterId(idToFilter) {
+    store.state.filteredId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["where"])(store.state.message, {
+      id: idToFilter
+    });
+    console.log(store.state.filteredId);
+  },
   preloader: function preloader() {
     var spinner = "<div class=\"sk-wave\">\n      <div class=\"sk-rect sk-rect1\"></div>\n      <div class=\"sk-rect sk-rect2\"></div>\n      <div class=\"sk-rect sk-rect3\"></div>\n      <div class=\"sk-rect sk-rect4\"></div>\n      <div class=\"sk-rect sk-rect5\"></div>\n      </div>";
     document.getElementById("loader").innerHTML = spinner;
@@ -13879,13 +13885,6 @@ var store = {
     filteredId: ""
   }
 };
-
-//   filterId: (idToFilter) => {
-//     store.state.filteredId = where(store.state.message, {
-//       id: idToFilter
-//     });
-//     console.log(store.state.filteredId);
-//   }
 
 // 
 // ======================================================/
@@ -13928,7 +13927,7 @@ jsonLoader.getJSON(jsonUrl).then(function (response) {
     console.log("document ready");
     document.getElementById("filterSpecies").onclick = jsonLoader.filter;
     $(document.body).on('click', 'img', function () {
-      store.filterId(this.id);
+      jsonLoader.filterId(this.id);
     });
   };
   // in case the document is already rendered
