@@ -7,8 +7,6 @@ const Vue = require("./js/vendor/vue.min.js");
 // ======================================================/
 const ajaxUrl = "src/js/ajax/bonsai.json";
 
-
-
 // 
 // ======================================================/
 const store = {
@@ -18,6 +16,18 @@ const store = {
     filteredId: ""
   }  
 };
+
+// filter: () => {
+//     store.state.message = where(store.state.message, {
+//       species: "Jukan"
+//     });
+//   },
+//   filterId: (idToFilter) => {
+//     store.state.filteredId = where(store.state.message, {
+//       id: idToFilter
+//     });
+//     console.log(store.state.filteredId);
+//   }
 
 // 
 // ======================================================/
