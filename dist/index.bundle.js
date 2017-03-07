@@ -13834,43 +13834,58 @@ var Vue = __webpack_require__(2);
 
 // 
 // ======================================================/
-var ajaxUrl = "src/js/ajax/bonsai.json";
-var store = {
-  debug: true,
-  state: {
-    message: "",
-    filteredId: ""
-  },
-  ajaxLoader: function ajaxLoader() {
-    var request = new XMLHttpRequest();
-    request.open("GET", ajaxUrl, true);
-    request.onload = function () {
-      if (request.status >= 200 && request.status < 400) {
-        var data = JSON.parse(request.responseText);
-        store.state.message = data.bonsai;
-        console.log("loaded");
-      } else {
-        // console.log();
-      }
-    };
-    request.onerror = function () {
-      // console.log();
-    };
-    request.send();
-  },
+var jsonUrl = "src/js/ajax/bonsai.json";
+var jsonLoader = {
+  start: function start(url) {
+    return new Promise(function (resolve, reject) {
+      var req = new XMLHttpRequest();
+      req.open("GET", url);
 
+      req.onload = function () {
+        if (req.status == 200) {
+          resolve(req.response);
+        } else {
+          reject(Error(req.statusText));
+        }
+      };
+
+      req.onerror = function () {
+        reject(Error("error"));
+      };
+
+      req.send();
+    });
+  },
+  getJSON: function getJSON(url) {
+    return jsonLoader.start(url).then(JSON.parse);
+  },
   filter: function filter() {
     store.state.message = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["where"])(store.state.message, {
       species: "Jukan"
     });
   },
-  filterId: function filterId(idToFilter) {
-    store.state.filteredId = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_underscore__["where"])(store.state.message, {
-      id: idToFilter
-    });
-    console.log(store.state.filteredId);
+  preloader: function preloader() {
+    var spinner = "<div class=\"sk-wave\">\n      <div class=\"sk-rect sk-rect1\"></div>\n      <div class=\"sk-rect sk-rect2\"></div>\n      <div class=\"sk-rect sk-rect3\"></div>\n      <div class=\"sk-rect sk-rect4\"></div>\n      <div class=\"sk-rect sk-rect5\"></div>\n      </div>";
+    document.getElementById("loader").innerHTML = spinner;
   }
 };
+
+// 
+// ======================================================/
+var store = {
+  debug: true,
+  state: {
+    message: "",
+    filteredId: ""
+  }
+};
+
+//   filterId: (idToFilter) => {
+//     store.state.filteredId = where(store.state.message, {
+//       id: idToFilter
+//     });
+//     console.log(store.state.filteredId);
+//   }
 
 // 
 // ======================================================/
@@ -13878,7 +13893,8 @@ var vmA = new Vue({
   el: "#app",
   data: {
     privateState: {},
-    sharedState: store.state
+    sharedState: store.state,
+    loader: true
   }
 });
 
@@ -13900,7 +13916,12 @@ var vmC = new Vue({
 
 // 
 // ======================================================/
-store.ajaxLoader();
+jsonLoader.preloader();
+jsonLoader.getJSON(jsonUrl).then(function (response) {
+  // console.log(response.bonsai.length);
+  store.state.message = response.bonsai;
+  vmA.loader = false;
+});
 
 (function () {
   var run = function run() {
